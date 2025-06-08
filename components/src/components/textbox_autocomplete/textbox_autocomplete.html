@@ -1,0 +1,33 @@
+<!-- textbox_autocomplete.html -->
+<div class="autocomplete-wrapper">
+  <div class="input-wrapper">
+    <input
+      class="autocomplete-input"
+      ref="input"
+      placeholder="Cerca..."
+      :class="finalClass"
+      :value="typeof modelValue === 'object' ? modelValue.label || modelValue.id : modelValue"
+      @dblclick="showAllSuggestions"
+      @keydown="handleKeydown"
+      @input="handleInput"
+    />
+      <span
+        v-if="showClearIcon && modelValue"
+        class="clear-icon"
+        @click="clearInput"
+      >
+        &times;
+      </span>
+      <!-- Suggestion dropdown -->
+      <div v-if="isOpen && filteredSuggestions.length > 0" class="suggestions" :style="{ width: dropdownWidth }">
+        <div
+          v-for="(item, index) in filteredSuggestions"
+          :key="index"
+          :class="{ 'suggestion-item': true, active: index === activeSuggestionIndex }"
+          @click="selectSuggestion(item)"
+        >
+          {{ typeof item === 'object' ? item.label || item.id : item }}
+      </div>
+    </div>
+  </div>
+</div>

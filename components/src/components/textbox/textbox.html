@@ -1,0 +1,18 @@
+<!-- textbox.html -->
+<div class="input-wrapper">
+  <input
+    type="text"
+    :class="finalClass"
+    :style="style_textbox"
+    :value="modelValue"
+    @input="$emit('update:modelValue', $event.target.value)"
+    @change="$emit('change', $event.target.value)"
+  />
+  <span
+    v-if="showClearIcon && modelValue"
+    class="clear-icon"
+    @click="clearInput"
+  >
+    &times;
+  </span>
+</div>

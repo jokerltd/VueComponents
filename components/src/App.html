@@ -1,0 +1,35 @@
+<!-- App.html -->
+<div class="container-fluid">
+  <div class="form-group">
+    <TextBox 
+      v-model="inputValue"
+      @change="handleTextBoxChange"
+      :class_textbox="{ 'custom-class-textbox': true }"
+      :merge-classes="true"
+      :show-clear-icon="true"
+    />
+      <!--
+      :class_textbox="{ 'custom-class-textbox': true, 'another-class': true }"
+      :style_textbox="{ color: 'navy', fontSize: '10px' }"
+      -->
+    <div>{{ inputValue }}</div>
+  </div>
+
+  <div class='custom-autocomplete-local'>
+  
+    <AutoCompleteTextBox
+      v-model="inputAutocomplete"
+      :class_textbox="{'custom-autocomplete': true}"
+      :show-clear-icon="true"
+      :suggestions="italianWords"
+      :merge-classes="true"
+      @select="onSelect"
+    />
+    <!--
+      apiUrl="https://api.example.com/autocomplete" 
+      :apiParams="{ lang: 'it' }"
+    -->
+    <div>Current Value: {{ inputAutocomplete }}</div>
+  </div>
+
+</div>
