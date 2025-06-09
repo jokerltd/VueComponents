@@ -17,10 +17,6 @@ export default {
       type: [String, Object, Array],
       default: null,
     },
-    debounce: {
-      type: Number,
-      default: 300,
-    },
     modelValue: {
       type: [String, Object],
       required: true,
@@ -29,6 +25,10 @@ export default {
     mergeClasses: {
       type: Boolean,
       default: true,
+    },
+    placeholder: {
+      type: String,
+      required: false,
     },
     showClearIcon: {
       type: Boolean,
@@ -238,10 +238,7 @@ export default {
 .autocomplete-input {
   box-sizing: border-box;
   font-size: 16px;
-  /* left: 3rem; */
   padding: 8px;
-  /* position: absolute; */
-  /* top: 10rem; */
   width: 20rem;
 }
 
@@ -294,7 +291,6 @@ export default {
 .suggestion-item {
   cursor: pointer;
   padding: 8px 12px;
-  /* position: relative; */
 }
 
 .suggestion-item:hover,

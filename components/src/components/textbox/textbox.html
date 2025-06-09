@@ -3,6 +3,7 @@
   <input
     type="text"
     :class="finalClass"
+    :placeholder="placeholder"
     :style="style_textbox"
     :value="modelValue"
     @input="$emit('update:modelValue', $event.target.value)"

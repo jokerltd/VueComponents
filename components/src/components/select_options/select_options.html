@@ -1,0 +1,27 @@
+<!-- select_options.html -->
+<div class="input-wrapper">
+  <div
+    class="select-display"
+    :class="finalClass"
+    @click="toggleDropdown"
+    @keydown="handleKeydown"
+    tabindex="0"
+  >
+    {{ selectedLabel }}
+    <span v-if="showClearIcon && isModelValueValid" class="clear-icon" @click.stop="clearInput">&times;</span>
+    <div class="dropdown-arrow"></div>
+  </div>
+
+  <div v-if="isOpen" class="dropdown">
+    <div v-if="loading" class="dropdown-item">Loading...</div>
+    <div v-else-if="optionsArray.length === 0" class="dropdown-item">No options found</div>
+    <div
+      v-for="(option, index) in optionsArray"
+      :key="option.id || option.label || index"
+      :class="{ 'dropdown-item': true, active: index === activeIndex }"
+      @click="selectOption(option)"
+    >
+      {{ typeof option === 'object' ? option.label || option.id : option }}
+    </div>
+  </div>
+</div>

@@ -4,8 +4,8 @@
     <input
       class="autocomplete-input"
       ref="input"
-      placeholder="Cerca..."
       :class="finalClass"
+      :placeholder="placeholder"
       :value="typeof modelValue === 'object' ? modelValue.label || modelValue.id : modelValue"
       @dblclick="showAllSuggestions"
       @keydown="handleKeydown"

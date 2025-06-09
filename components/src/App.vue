@@ -4,17 +4,20 @@
 
 /** App,vue **/
 import AutoCompleteTextBox from '@/components/textbox_autocomplete/textbox_autocomplete.vue'
+import SelectOptions from '@/components/select_options/select_options.vue'
 import TextBox from '@/components/textbox/textbox.vue'
 
 export default {
   name: 'App',
   components: {
     AutoCompleteTextBox,
+    SelectOptions,
     TextBox,
   },
   data() {
     return {
       inputValue: '',
+      inputValue2: '',
       inputAutocomplete: '',
       italianWords: [
         'Accesso',
@@ -48,10 +51,17 @@ export default {
         'Pane',
         'Parola'
       ],
+      myOptions: [],
+      selectedItem: null,
     }
+  },
+  mounted() {
+
+    this.myOptions = ["Mele","Banane","Pere","Fragole"]
   },
   methods: {
     handleTextBoxChange(newValue) {
+     
       console.log('Text box changed to:', newValue)
     },
     onSelect(item) {

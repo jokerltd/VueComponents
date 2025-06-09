@@ -15,14 +15,32 @@
     <div>{{ inputValue }}</div>
   </div>
 
+  <div class="form-group">
+    <TextBox 
+      v-model="inputValue2"
+      @change="handleTextBoxChange"
+      :class_textbox="{ 'custom-class-textbox': true }"
+      :merge-classes="true"
+      :placeholder="'Secondary input text'"
+      :show-clear-icon="true"
+    />
+      <!--
+      :class_textbox="{ 'custom-class-textbox': true, 'another-class': true }"
+      :style_textbox="{ color: 'navy', fontSize: '10px' }"
+      -->
+    <div>{{ inputValue2 }}</div>
+  </div>
+
+
   <div class='custom-autocomplete-local'>
   
     <AutoCompleteTextBox
       v-model="inputAutocomplete"
       :class_textbox="{'custom-autocomplete': true}"
+      :merge-classes="true"
+      :placeholder="'Text+Select'"
       :show-clear-icon="true"
       :suggestions="italianWords"
-      :merge-classes="true"
       @select="onSelect"
     />
     <!--
@@ -32,4 +50,22 @@
     <div>Current Value: {{ inputAutocomplete }}</div>
   </div>
 
+
+  <div class='custom-selectoption-local'>
+    <SelectOptions
+      placeholder="Scegli un frutto"
+      v-model="selectedItem"
+      :class_textbox="{ 'custom-select': true }"
+      :merge-classes="true"
+      :options="myOptions"
+      :show-clear-icon="true"
+      :style_textbox="{ width: '100%' }"
+      @update:modelValue="onSelect"
+    />
+    <!--
+      apiUrl="https://api.example.com/options" 
+      :apiParams="{ lang: 'it' }"
+    -->
+  </div>
+  <span>{{ selectedItem }}</span>
 </div>

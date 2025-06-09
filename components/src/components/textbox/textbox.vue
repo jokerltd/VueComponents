@@ -6,23 +6,27 @@ export default {
   props: {
     class_textbox: {
       type: [String, Object, Array],
-      required: false
+      required: false,
     },
     mergeClasses: {
       type: Boolean,
-      default: true
+      default: true,
     },
     modelValue: {
       type: String,
-      required: true
+      required: true,
+    },
+    placeholder: {
+      type: String,
+      required: false,
     },
     style_textbox: {
       type: [String, Object],
-      required: false
+      required: false,
     },
     showClearIcon: {
       type: Boolean,
-      default: true
+      default: true,
     },    
   },
   computed: {
