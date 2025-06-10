@@ -1,0 +1,15 @@
+<!-- buttons_radiobutton.html -->
+<div class="shrink-container" style="border: 1px solid red;">
+  <button
+    v-for="(button, index) in buttons"
+    :key="index"
+    :class="[
+      mergedClasses[index],
+      { 'selected': selectedIndex === index }
+    ]"
+    :style="{ backgroundColor: button.color }"
+    @click="selectButton(index)"
+  >
+    {{ button.label }}
+  </button>
+</div>

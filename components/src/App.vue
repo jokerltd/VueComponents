@@ -4,6 +4,7 @@
 
 /** App,vue **/
 import AutoCompleteTextBox from '@/components/textbox_autocomplete/textbox_autocomplete.vue'
+import ButtonsRadiobutton from '@/components/buttons_radiobutton/buttons_radiobutton.vue'
 import SelectOptions from '@/components/select_options/select_options.vue'
 import TextBox from '@/components/textbox/textbox.vue'
 
@@ -11,6 +12,7 @@ export default {
   name: 'App',
   components: {
     AutoCompleteTextBox,
+    ButtonsRadiobutton,
     SelectOptions,
     TextBox,
   },
@@ -52,6 +54,17 @@ export default {
         'Parola'
       ],
       myOptions: [],
+      selectedRadioButton: null,
+      buttonCustomClasses: [
+        'buttons-radiobutton-base-class',
+        'buttons-radiobutton-base-class buttons-radiobutton-base-class2',
+        'buttons-radiobutton-base-class'
+      ],      
+      buttonOptions: [
+        { label: 'Yes', color: '#007BFF', value: 'yes' },
+        { label: 'No', color: 'darkgreen', value: 'no' },
+        { label: 'Maybe', color: 'goldenrod', value: 'maybe' }
+      ],
       selectedItem: null,
     }
   },
@@ -63,6 +76,11 @@ export default {
     handleTextBoxChange(newValue) {
      
       console.log('Text box changed to:', newValue)
+    },
+    handleSelectedRadioButton(value) {
+
+      console.debug("handleSelectedRadioButton(value)", value) /**/
+      this.selectedRadioButton = value
     },
     onSelect(item) {
      
@@ -80,6 +98,14 @@ export default {
   text-align: left;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+}
+
+.alt {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.btn-style {
+  border-radius: 8px;
 }
 
 .custom-class-textbox {
@@ -103,6 +129,24 @@ export default {
   display: block;
   margin-bottom: 1rem;
   width: 100%;
+}
+
+.buttons-radiobutton-base-class {
+  background-color: #333;
+  border-radius: 4px;
+  border: none;
+  color: navy !important;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 20px 30px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  width: 5rem !important;
+}
+
+.buttons-radiobutton-base-class2 {
+  color: yellow !important;
 }
 
 </style>

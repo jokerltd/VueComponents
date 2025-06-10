@@ -67,5 +67,18 @@
       :apiParams="{ lang: 'it' }"
     -->
   </div>
-  <span>{{ selectedItem }}</span>
+  <p>{{ selectedItem }}</p>
+
+  <div>
+    <ButtonsRadiobutton
+      v-model="selectedRadioButton"
+      :buttons="buttonOptions"
+      base-class="radio-button"
+      :button-classes="buttonCustomClasses"
+      :merge-classes="true"
+    />
+  </div>
+  <p>Selected Value: {{ selectedRadioButton }}</p>
+<!--      base-class="buttons-radiobutton-base-class" -->
+
 </div>
