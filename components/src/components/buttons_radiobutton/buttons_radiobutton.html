@@ -10,6 +10,14 @@
     :style="{ backgroundColor: button.color }"
     @click="selectButton(index)"
   >
-    {{ button.label }}
+    <span v-if="button.icon && button.side=='left'" class="button-icon">
+      {{ button.icon }} &nbsp;
+    </span>
+    <span>
+      {{ button.label }}
+    </span>
+    <span v-if="button.icon && button.side=='right'" class="button-icon">
+       &nbsp; {{ button.icon }}
+    </span>
   </button>
 </div>

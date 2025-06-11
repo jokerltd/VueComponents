@@ -61,8 +61,8 @@ export default {
         'buttons-radiobutton-base-class'
       ],      
       buttonOptions: [
-        { label: 'Yes', color: '#007BFF', value: 'yes' },
-        { label: 'No', color: 'darkgreen', value: 'no' },
+        { label: 'Yes', color: '#007BFF', value: 'yes' , icon: '✔️', side: "left"},
+        { label: 'No', color: 'darkgreen', value: 'no',  icon: '❌', side: "right"},
         { label: 'Maybe', color: 'goldenrod', value: 'maybe' }
       ],
       selectedItem: null,
