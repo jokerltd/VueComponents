@@ -4,17 +4,15 @@
 
 /** App,vue **/
 import AutoCompleteTextBox from '@/components/textbox_autocomplete/textbox_autocomplete.vue'
-import ButtonsCheckboxes from '@/components/buttons_checkboxes/buttons_checkboxes.vue'
 import ButtonsRadiobutton from '@/components/buttons_radiobutton/buttons_radiobutton.vue'
-import TextBox from '@/components/textbox/textbox.vue'
 import SelectOptions from '@/components/select_options/select_options.vue'
+import TextBox from '@/components/textbox/textbox.vue'
 
 export default {
   name: 'App',
   components: {
     AutoCompleteTextBox,
     ButtonsRadiobutton,
-    ButtonsCheckboxes,
     SelectOptions,
     TextBox,
   },
@@ -56,7 +54,6 @@ export default {
         'Parola'
       ],
       myOptions: [],
-      selectedButtonsCheckboxes: null,
       selectedRadioButton: null,
       buttonCustomClasses: [
         'buttons-radiobutton-base-class',
@@ -111,8 +108,27 @@ export default {
   border-radius: 8px;
 }
 
-.buttons-checkbutton-base-class2 {
-  color: yellow !important;
+.custom-class-textbox {
+  background-color: lightyellow;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  color: red;
+}
+
+.custom-autocomplete {
+  background-color: lightblue;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  color: red;
+  font-size: 16px;
+  padding: 1rem;
+  width: 20rem;
+}
+
+.form-group {
+  display: block;
+  margin-bottom: 1rem;
+  width: 100%;
 }
 
 .buttons-radiobutton-base-class {
@@ -131,50 +147,6 @@ export default {
 
 .buttons-radiobutton-base-class2 {
   color: yellow !important;
-}
-
-.checkbox-button {
-  background-color: #333;
-  border-radius: 4px;
-  border: none;
-  color: navy !important;
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: bold;
-  padding: 20px 30px;
-  text-transform: uppercase;
-  transition: background-color 0.3s ease;
-  width: 5rem !important;
-}
-
-.custom-autocomplete {
-  background-color: lightblue;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  /*color: red;*/
-  font-size: 16px;
-  padding: 1rem;
-  width: 20rem;
-}
-
-.custom-class-textbox {
-  background-color: lightyellow;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  color: red;
-}
-
-.custom-class-textbox2 {
-  background-color: lightblue !important;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  color: blue;
-}
-
-.form-group {
-  display: block;
-  margin-bottom: 1rem;
-  width: 100%;
 }
 
 </style>

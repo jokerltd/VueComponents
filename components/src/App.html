@@ -19,7 +19,7 @@
     <TextBox 
       v-model="inputValue2"
       @change="handleTextBoxChange"
-      :class_textbox="{ 'custom-class-textbox2': true }"
+      :class_textbox="{ 'custom-class-textbox': true }"
       :merge-classes="true"
       :placeholder="'Secondary input text'"
       :show-clear-icon="true"
@@ -80,17 +80,5 @@
   </div>
   <p>Selected Value: {{ selectedRadioButton }}</p>
 <!--      base-class="buttons-radiobutton-base-class" -->
-
-  <div>
-    <ButtonsCheckboxes
-      v-model="selectedButtonsCheckboxes"
-      :buttons="buttonOptions"
-      base-class="checkbox-button"
-      :button-classes="buttonCustomClasses"
-      :merge-classes="true"
-    />
-  </div>
-  <p>Selected Value: {{ selectedButtonsCheckboxes }}</p>
-<!--      base-class="buttons-checkbutton-base-class" -->
 
 </div>
