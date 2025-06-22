@@ -267,9 +267,12 @@ export default {
 }
 
 .input-wrapper {
-  position: relative;
+  border: 1px solid red;
   display: inline-block;
-  width: 100%;
+  max-width: 100%;  
+  padding: 0.3rem;
+  position: relative;
+  width: fit-content;
 }
 
 .suggestions {
