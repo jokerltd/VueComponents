@@ -4,8 +4,10 @@
     v-for="(button, index) in buttons"
     :key="index"
     :class="[
-      mergedClasses[index],
-      { 'selected': selectedIndex === index }
+      ...mergedClasses[index],
+      { 'selected': selectedIndex === index },
+      'button-height',
+      'checkbox-button',
     ]"
     :style="{ backgroundColor: button.color }"
     @click="selectButton(index)"

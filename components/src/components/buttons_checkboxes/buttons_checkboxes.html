@@ -1,0 +1,28 @@
+<!-- button_checkboxes.html -->
+
+<div class="shrink-container" style="border: 1px solid red;">
+    <button
+      v-for="(button, index) in buttons"
+      :key="index"
+      :class="[
+        ...mergedClasses[index],
+        { 'selected': isSelected(index) },
+        'button-height',
+        'checkbox-button',
+      ]"
+      :style="{ backgroundColor: button.color }"
+      @click="toggleButton(index)"
+    >
+      <span v-if="button.icon && button.side === 'left'" class="button-icon">
+        {{ button.icon }}&nbsp;
+      </span>
+      <span class="button-label">{{ button.label }}</span>
+      <span v-if="button.icon && button.side === 'right'" class="button-icon">
+        &nbsp;{{ button.icon }}
+      </span>
+    </button>
+</div>
+<!--
+<div class="tab-navigation">
+</div>
+-->

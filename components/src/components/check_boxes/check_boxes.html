@@ -1,0 +1,15 @@
+<!-- check_boxes.html -->
+<div class="container-fluid">
+  
+  <div class="checkbox-group">
+    <label v-for="option in options" :key="option.value" class="checkbox-item">
+      <input
+        type="checkbox"
+        :value="option.value"
+        v-model="selectedValues"
+      />
+      {{ option.label }}
+    </label>
+  </div>
+      
+</div>

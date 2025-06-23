@@ -4,7 +4,10 @@
 
 /** App,vue **/
 import AutoCompleteTextBox from '@/components/textbox_autocomplete/textbox_autocomplete.vue'
+import ButtonsCheckbox from '@/components/buttons_checkboxes/buttons_checkboxes.vue'
 import ButtonsRadiobutton from '@/components/buttons_radiobutton/buttons_radiobutton.vue'
+import CheckBoxes from '@/components/check_boxes/check_boxes.vue'
+import RadioButtons from '@/components/radio_buttons/radio_buttons.vue'
 import SelectOptions from '@/components/select_options/select_options.vue'
 import TextBox from '@/components/textbox/textbox.vue'
 
@@ -12,49 +15,15 @@ export default {
   name: 'App',
   components: {
     AutoCompleteTextBox,
+    ButtonsCheckbox,
     ButtonsRadiobutton,
+    CheckBoxes,
+    RadioButtons,
     SelectOptions,
     TextBox,
   },
   data() {
     return {
-      inputValue: '',
-      inputValue2: '',
-      inputAutocomplete: '',
-      italianWords: [
-        'Accesso',
-        'Albero',
-        'Amore',
-        'Annuncio',
-        'Avvenimento',
-        'Barca',
-        'Bene',
-        'Casa',
-        'Città',
-        'Dolore',
-        'Donna',
-        'Esempio',
-        'Famiglia',
-        'Figlio',
-        'Gatto',
-        'Giorno',
-        'Hobby',
-        'Hotel',
-        'Incontro',
-        'Isola',
-        'Lavoro',
-        'Libro',
-        'Mare',
-        'Mese',
-        'Nome',
-        'Notte',
-        'Occhio',
-        'Oggetto',
-        'Pane',
-        'Parola'
-      ],
-      myOptions: [],
-      selectedRadioButton: null,
       buttonCustomClasses: [
         'buttons-radiobutton-base-class',
         'buttons-radiobutton-base-class buttons-radiobutton-base-class2',
@@ -65,17 +34,47 @@ export default {
         { label: 'No', color: 'darkgreen', value: 'no',  icon: '❌', side: "right"},
         { label: 'Maybe', color: 'goldenrod', value: 'maybe' }
       ],
+      checkboxesOptions: [],
+      inputValue: '',
+      inputValue2: '',
+      inputAutocomplete: '',
+      italianWords: [],
+      myOptions: [],
+      radioRadiobuttons: null,
+      selectedButtonsCheckboxes: [],
+      selectedButtonRadioButton: null,
+      selectedCheckBoxes: [],
+      selectedRadio: null,
+      selectedRadioButton: null,
+      selectedRadioOptions: [],
       selectedItem: null,
     }
   },
   mounted() {
 
+    this.italianWords = ['Accesso','Albero','Amore','Annuncio','Avvenimento','Barca','Bene','Casa','Città','Dolore','Donna','Esempio','Famiglia','Figlio','Gatto','Giorno','Hobby','Hotel','Incontro','Isola','Lavoro','Libro','Mare','Mese','Nome','Notte','Occhio','Oggetto','Pane','Parola']
     this.myOptions = ["Mele","Banane","Pere","Fragole"]
+    this.checkboxesOptions = ["True", "False", "Maybe"]
+    this.radioOptions = ["True", "False", "Maybe"]
+    this.selectedRadioOptions = ["True", "False", "Maybe"]
   },
   methods: {
     handleTextBoxChange(newValue) {
      
       console.log('Text box changed to:', newValue)
+    },
+    handleSelectedRadio(value) {
+
+      console.debug("handleSelectedRadio(value)", value) /**/
+      this.selectedRadio = value
+    },
+    handleSelectedButtonCheckBoxes(value) {
+
+      this.selectedButtonsCheckboxes = value
+    },
+    handleSelectedButtonRadioButton(value) {
+
+      this.selectedButtonRadioButton = value
     },
     handleSelectedRadioButton(value) {
 
@@ -89,6 +88,7 @@ export default {
   }
 }
 </script>
+
 
 <style>
 #app {
@@ -108,29 +108,25 @@ export default {
   border-radius: 8px;
 }
 
-.custom-class-textbox {
-  background-color: lightyellow;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  color: red;
+.button-layout {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  min-width: 4rem;
+  padding: 0 12px;
+  box-sizing: border-box;
+  font-size: 0.875rem; /* ~14px */
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
-.custom-autocomplete {
-  background-color: lightblue;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  color: red;
-  font-size: 16px;
-  padding: 1rem;
-  width: 20rem;
+.buttons-radiobutton-base-class {
+  background-color: #333;
+  color: navy !important;
 }
-
-.form-group {
-  display: block;
-  margin-bottom: 1rem;
-  width: 100%;
-}
-
+/*
 .buttons-radiobutton-base-class {
   background-color: #333;
   border-radius: 4px;
@@ -144,9 +140,63 @@ export default {
   transition: background-color 0.3s ease;
   width: 5rem !important;
 }
+*/
 
 .buttons-radiobutton-base-class2 {
   color: yellow !important;
+}
+
+.checkbox-button,
+.radio-button {
+  @extend .button-layout;
+  all: unset;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: #333;
+  font-size: 0.9rem !important;
+  font-weight: 600;
+  padding: 0.3rem;
+  transition: background-color 0.3s ease;
+  min-width: 4rem;
+}
+
+.checkboxCustomClasses {
+  height: 2rem !important;
+  width: 3rem !important;
+}
+
+.custom-autocomplete {
+  background-color: lightblue;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  color: red;
+  font-size: 16px;
+  padding: 1rem;
+  width: 20rem;
+}
+
+.custom-class-textbox {
+  background-color: lightyellow;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  color: red;
+}
+
+.custom-container {
+  background-color: transparent;
+  border: 1px solid red;
+  padding: 20px;
+}
+
+.form-group {
+  display: block;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.radioCustomClasses {
+  height: 2rem !important;
+  width: 3rem !important;
 }
 
 </style>

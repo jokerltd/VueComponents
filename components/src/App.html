@@ -71,14 +71,57 @@
 
   <div>
     <ButtonsRadiobutton
-      v-model="selectedRadioButton"
+      v-model="selectedButtonRadioButton"
       :buttons="buttonOptions"
       base-class="radio-button"
       :button-classes="buttonCustomClasses"
       :merge-classes="true"
     />
   </div>
-  <p>Selected Value: {{ selectedRadioButton }}</p>
+  <p>Selected Value ButtonsRadioButton: {{ selectedButtonRadioButton }}</p>
 <!--      base-class="buttons-radiobutton-base-class" -->
+
+  <div>
+    <ButtonsCheckbox
+      v-model="selectedButtonsCheckboxes"
+      :buttons="buttonOptions"
+      base-class="checkbox-button"
+      :button-classes="buttonCustomClasses"
+      :merge-classes="true"
+    />
+    <br />
+    <p>Selected Values ButtonsCheckboxes: {{ selectedButtonsCheckboxes }}</p>  
+  </div>
+<!--      base-class="buttons-checkbutton-base-class" -->
+
+<!--
+  <div>
+    <RadioButtons
+      v-model="selectedRadioButton"
+      :options="[
+        { label: 'Yes', value: 'yes' },
+        { label: 'No', value: 'no' },
+        { label: 'Maybe', value: 'maybe' }
+      ]"
+      :input-classes="['radioCustomClasses']"
+      :merge-classes="true"      
+    />
+  </div>
+  <br/>
+  <p>Selected Value RadioButton: {{ selectedRadio }}</p>
+<!--      base-class="buttons-checkbutton-base-class" -->
+<!--
+  <div>
+    <CheckBoxes
+      v-model="selectedCheckBoxes"
+      :buttons="checkboxesOptions"
+      base-class="checkbox-button"
+      :button-classes="checkboxCustomClasses"
+      :merge-classes="true"
+    />
+  </div>
+  <p>Selected Values CheckBoxes: {{ selectedCheckboxes }}</p>
+<!--      base-class="buttons-checkbutton-base-class" -->
+
 
 </div>

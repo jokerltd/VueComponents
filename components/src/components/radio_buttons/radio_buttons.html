@@ -1,0 +1,19 @@
+<!-- radio_buttons.html -->
+<div class="container-fluid">
+  <div class="radio-group">
+    <label
+      v-for="(option, index) in options"
+      :key="option.value"
+      :class="itemClass(index)"
+      @click="selectedValue = option.value"
+    >
+      <input
+        type="radio"
+        :value="option.value"
+        v-model="selectedValue"
+        :name="groupName"
+      />
+      {{ option.label }}
+    </label>
+  </div>
+</div>

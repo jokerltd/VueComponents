@@ -54,9 +54,15 @@ export default {
 
 <style scoped>
 
-.radio-button-group {
-  display: flex;
-  gap: 10px;
+.button-height {
+  align-items: center;
+  display: inline-flex;
+  font-size: 0.85rem;
+  gap: 4px;
+  height: 2rem;
+  justify-content: center;
+  min-height: 1.5rem;
+  padding: 0 12px;
 }
 
 .radio-button {
@@ -67,7 +73,7 @@ export default {
   font-size: 0.7rem;
   height: 2rem;
   margin-right: 0.1rem;
-  padding: 2px 3px;
+  padding: 03.rem;
   transition: background-color 0.3s ease;
   width: 3rem;
 }
