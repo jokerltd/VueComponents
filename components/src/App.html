@@ -1,14 +1,14 @@
 <!-- App.html -->
 <div class="container-fluid">
   <div class="form-group">
-    <TextBox 
+    <TextBox
       v-model="inputValue"
       @change="handleTextBoxChange"
       :class_textbox="{ 'custom-class-textbox': true }"
       :merge-classes="true"
       :show-clear-icon="true"
     />
-      <!--
+    <!--
       :class_textbox="{ 'custom-class-textbox': true, 'another-class': true }"
       :style_textbox="{ color: 'navy', fontSize: '10px' }"
       -->
@@ -16,7 +16,7 @@
   </div>
 
   <div class="form-group">
-    <TextBox 
+    <TextBox
       v-model="inputValue2"
       @change="handleTextBoxChange"
       :class_textbox="{ 'custom-class-textbox': true }"
@@ -24,16 +24,14 @@
       :placeholder="'Secondary input text'"
       :show-clear-icon="true"
     />
-      <!--
+    <!--
       :class_textbox="{ 'custom-class-textbox': true, 'another-class': true }"
       :style_textbox="{ color: 'navy', fontSize: '10px' }"
       -->
     <div>{{ inputValue2 }}</div>
   </div>
 
-
-  <div class='custom-autocomplete-local'>
-  
+  <div class="custom-autocomplete-local">
     <AutoCompleteTextBox
       v-model="inputAutocomplete"
       :class_textbox="{'custom-autocomplete': true}"
@@ -44,14 +42,13 @@
       @select="onSelect"
     />
     <!--
-      apiUrl="https://api.example.com/autocomplete" 
+      apiUrl="https://api.example.com/autocomplete"
       :apiParams="{ lang: 'it' }"
     -->
     <div>Current Value: {{ inputAutocomplete }}</div>
   </div>
 
-
-  <div class='custom-selectoption-local'>
+  <div class="custom-selectoption-local">
     <SelectOptions
       placeholder="Scegli un frutto"
       v-model="selectedItem"
@@ -63,7 +60,7 @@
       @update:modelValue="onSelect"
     />
     <!--
-      apiUrl="https://api.example.com/options" 
+      apiUrl="https://api.example.com/options"
       :apiParams="{ lang: 'it' }"
     -->
   </div>
@@ -79,7 +76,7 @@
     />
   </div>
   <p>Selected Value ButtonsRadioButton: {{ selectedButtonRadioButton }}</p>
-<!--      base-class="buttons-radiobutton-base-class" -->
+  <!--      base-class="buttons-radiobutton-base-class" -->
 
   <div>
     <ButtonsCheckbox
@@ -90,11 +87,10 @@
       :merge-classes="true"
     />
     <br />
-    <p>Selected Values ButtonsCheckboxes: {{ selectedButtonsCheckboxes }}</p>  
+    <p>Selected Values ButtonsCheckboxes: {{ selectedButtonsCheckboxes }}</p>
   </div>
-<!--      base-class="buttons-checkbutton-base-class" -->
+  <!--      base-class="buttons-checkbutton-base-class" -->
 
-<!--
   <div>
     <RadioButtons
       v-model="selectedRadioButton"
@@ -104,13 +100,13 @@
         { label: 'Maybe', value: 'maybe' }
       ]"
       :input-classes="['radioCustomClasses']"
-      :merge-classes="true"      
+      :merge-classes="true"
     />
   </div>
-  <br/>
-  <p>Selected Value RadioButton: {{ selectedRadio }}</p>
-<!--      base-class="buttons-checkbutton-base-class" -->
-<!--
+  <br />
+  <p>Selected Value RadioButton: {{ selectedRadioButton }}</p>
+  <!--      base-class="buttons-checkbutton-base-class" -->
+  <!--
   <div>
     <CheckBoxes
       v-model="selectedCheckBoxes"
@@ -122,6 +118,4 @@
   </div>
   <p>Selected Values CheckBoxes: {{ selectedCheckboxes }}</p>
 <!--      base-class="buttons-checkbutton-base-class" -->
-
-
 </div>

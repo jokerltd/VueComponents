@@ -4,6 +4,7 @@
     <label
       v-for="(option, index) in options"
       :key="option.value"
+      class="radio-item radio-button"
       :class="itemClass(index)"
       @click="selectedValue = option.value"
     >
@@ -13,6 +14,7 @@
         v-model="selectedValue"
         :name="groupName"
       />
+      <span class="custom-radio-indicator"></span>
       {{ option.label }}
     </label>
   </div>

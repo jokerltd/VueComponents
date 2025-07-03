@@ -10,23 +10,28 @@
       @dblclick="showAllSuggestions"
       @keydown="handleKeydown"
       @input="handleInput"
+      @focus="onFocus"
+      @blur="onBlur"
     />
-      <span
-        v-if="showClearIcon && modelValue"
-        class="clear-icon"
-        @click="clearInput"
+    <span
+      v-if="showClearIcon && modelValue"
+      class="clear-icon"
+      @click="clearInput"
+    >
+      &times;
+    </span>
+    <div
+      v-if="isOpen && filteredSuggestions.length > 0"
+      class="suggestions"
+      :style="{ width: dropdownWidth }"
+    >
+      <div
+        v-for="(item, index) in filteredSuggestions"
+        :key="index"
+        :class="{ 'suggestion-item': true, active: index === activeSuggestionIndex }"
+        @click="selectSuggestion(item)"
       >
-        &times;
-      </span>
-      <!-- Suggestion dropdown -->
-      <div v-if="isOpen && filteredSuggestions.length > 0" class="suggestions" :style="{ width: dropdownWidth }">
-        <div
-          v-for="(item, index) in filteredSuggestions"
-          :key="index"
-          :class="{ 'suggestion-item': true, active: index === activeSuggestionIndex }"
-          @click="selectSuggestion(item)"
-        >
-          {{ typeof item === 'object' ? item.label || item.id : item }}
+        {{ typeof item === 'object' ? item.label || item.id : item }}
       </div>
     </div>
   </div>
