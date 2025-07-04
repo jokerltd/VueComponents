@@ -49,57 +49,57 @@ export default {
       isLoading: false,
       searchTimeout: null,
       blurTimeout: null,
-    };
+    }
   },
   computed: {
     finalClass() {
       const defaultClasses = {
         "autocomplete-input": true,
-      };
+      }
 
       if (!this.mergeClasses && this.class_textbox !== undefined) {
-        return this.class_textbox;
+        return this.class_textbox
       }
 
       if (!this.class_textbox) {
-        return defaultClasses;
+        return defaultClasses
       }
 
       if (typeof this.class_textbox === "string") {
-        return { ...defaultClasses, [this.class_textbox]: true };
+        return { ...defaultClasses, [this.class_textbox]: true }
       }
 
       if (Array.isArray(this.class_textbox)) {
-        const merged = { ...defaultClasses };
+        const merged = { ...defaultClasses }
         this.class_textbox.forEach((cls) => {
-          if (typeof cls === "string") merged[cls] = true;
-        });
-        return merged;
+          if (typeof cls === "string") merged[cls] = true
+        })
+        return merged
       }
 
-      return { ...defaultClasses, ...this.class_textbox };
+      return { ...defaultClasses, ...this.class_textbox }
     },
     dropdownWidth() {
       if (!this.$refs.input) {
-        return "100%";
+        return "100%"
       }
 
-      const inputRect = this.$refs.input.getBoundingClientRect();
-      let maxLength = inputRect.width;
-      const tempSpan = document.createElement("span");
-      tempSpan.style.position = "absolute";
-      tempSpan.style.visibility = "hidden";
-      tempSpan.style.whiteSpace = "nowrap";
-      document.body.appendChild(tempSpan);
+      const inputRect = this.$refs.input.getBoundingClientRect()
+      let maxLength = inputRect.width
+      const tempSpan = document.createElement("span")
+      tempSpan.style.position = "absolute"
+      tempSpan.style.visibility = "hidden"
+      tempSpan.style.whiteSpace = "nowrap"
+      document.body.appendChild(tempSpan)
 
       this.filteredSuggestions.forEach((item) => {
-        const text = typeof item === "object" ? item.label || item.id : item;
-        tempSpan.textContent = text;
-        maxLength = Math.max(maxLength, tempSpan.offsetWidth);
-      });
+        const text = typeof item === "object" ? item.label || item.id : item
+        tempSpan.textContent = text
+        maxLength = Math.max(maxLength, tempSpan.offsetWidth)
+      })
 
-      document.body.removeChild(tempSpan);
-      return `${maxLength + 20}px`;
+      document.body.removeChild(tempSpan)
+      return `${maxLength + 20}px`
     },
   },
   watch: {
@@ -107,121 +107,121 @@ export default {
       // Keep input in sync
     },
     suggestions(newVal) {
-      this.filteredSuggestions = newVal;
+      this.filteredSuggestions = newVal
     },
   },
   methods: {
     clearInput() {
-      this.$emit("update:modelValue", "");
-      this.filteredSuggestions = [];
-      this.isOpen = false;
+      this.$emit("update:modelValue", "")
+      this.filteredSuggestions = []
+      this.isOpen = false
       this.$nextTick(() => {
-        this.$refs.input.focus();
-      });
+        this.$refs.input.focus()
+      })
     },
     handleInput(event) {
-      const value = event.target.value;
-      console.debug("Input event:", value);
-      this.onInput(value);
+      const value = event.target.value
+      console.debug("Input event:", value)
+      this.onInput(value)
 
       if (value === "") {
-        this.isOpen = false; // Chiudi se l'input è vuoto
+        this.isOpen = false // Chiudi se l'input è vuoto
       } else {
-        this.isOpen = this.filteredSuggestions.length > 0;
+        this.isOpen = this.filteredSuggestions.length > 0
       }
     },
     onInput(value) {
-      this.$emit("update:modelValue", value);
-      this.activeSuggestionIndex = -1;
-      this.isOpen = true;
+      this.$emit("update:modelValue", value)
+      this.activeSuggestionIndex = -1
+      this.isOpen = true
 
       if (!this.suggestions || !Array.isArray(this.suggestions)) {
         if (this.apiUrl) {
-          clearTimeout(this.searchTimeout);
+          clearTimeout(this.searchTimeout)
           this.searchTimeout = setTimeout(() => {
             if (value.length > 0) {
-              this.fetchSuggestions(value);
+              this.fetchSuggestions(value)
             } else {
-              this.filteredSuggestions = [];
-              this.isOpen = false;
+              this.filteredSuggestions = []
+              this.isOpen = false
             }
-          }, 300);
+          }, 300)
         }
-        return;
+        return
       }
 
       this.filteredSuggestions = this.suggestions.filter((s) =>
         (typeof s === "string" ? s : s.label || s.id)
           .toLowerCase()
           .includes(value.toLowerCase())
-      );
-      this.isOpen = this.filteredSuggestions.length > 0;
+      )
+      this.isOpen = this.filteredSuggestions.length > 0
     },
     async fetchSuggestions(query) {
-      this.isLoading = true;
+      this.isLoading = true
 
       try {
-        const url = new URL(this.apiUrl, window.location.origin);
+        const url = new URL(this.apiUrl, window.location.origin)
         url.search = new URLSearchParams({
           q: query,
           ...this.apiParams,
-        });
+        })
 
-        const response = await fetch(url.toString());
-        const data = await response.json();
-        this.filteredSuggestions = data.results || [];
-        this.isOpen = true;
+        const response = await fetch(url.toString())
+        const data = await response.json()
+        this.filteredSuggestions = data.results || []
+        this.isOpen = true
       } catch (e) {
-        console.error("Fetch error:", e);
-        this.filteredSuggestions = [];
+        console.error("Fetch error:", e)
+        this.filteredSuggestions = []
       } finally {
-        this.isLoading = false;
+        this.isLoading = false
       }
     },
     showAllSuggestions() {
-      this.filteredSuggestions = [...this.suggestions];
-      this.isOpen = true;
-      this.activeSuggestionIndex = -1;
+      this.filteredSuggestions = [...this.suggestions]
+      this.isOpen = true
+      this.activeSuggestionIndex = -1
     },
     selectSuggestion(item) {
-      const value = typeof item === "object" ? item.label || item.id : item;
-      this.$emit("update:modelValue", value);
-      this.$emit("select", item);
-      this.isOpen = false;
-      this.activeSuggestionIndex = -1;
+      const value = typeof item === "object" ? item.label || item.id : item
+      this.$emit("update:modelValue", value)
+      this.$emit("select", item)
+      this.isOpen = false
+      this.activeSuggestionIndex = -1
     },
     navigateSuggestions(direction) {
-      const newIndex = this.activeSuggestionIndex + direction;
+      const newIndex = this.activeSuggestionIndex + direction
 
       if (newIndex >= 0 && newIndex < this.filteredSuggestions.length) {
-        this.activeSuggestionIndex = newIndex;
+        this.activeSuggestionIndex = newIndex
       }
     },
     handleKeydown(event) {
       switch (event.key) {
         case "ArrowDown":
-          event.preventDefault();
+          event.preventDefault()
           this.activeSuggestionIndex =
-            (this.activeSuggestionIndex + 1) % this.filteredSuggestions.length;
-          break;
+            (this.activeSuggestionIndex + 1) % this.filteredSuggestions.length
+          break
         case "ArrowUp":
-          event.preventDefault();
+          event.preventDefault()
           this.activeSuggestionIndex =
             (this.activeSuggestionIndex - 1 + this.filteredSuggestions.length) %
-            this.filteredSuggestions.length;
-          break;
+            this.filteredSuggestions.length
+          break
         case "Enter":
           if (this.activeSuggestionIndex >= 0) {
             this.selectSuggestion(
               this.filteredSuggestions[this.activeSuggestionIndex]
-            );
+            )
           }
-          break;
+          break
         case "Escape":
-          this.isOpen = false; // Chiude la tendina
-          this.activeSuggestionIndex = -1; // Resetta l'indice attivo
-          this.$refs.input.blur(); // Rimuovi il focus dall'input per chiudere la tastiera virtuale su mobile
-          break;
+          this.isOpen = false // Chiude la tendina
+          this.activeSuggestionIndex = -1 // Resetta l'indice attivo
+          this.$refs.input.blur() // Rimuovi il focus dall'input per chiudere la tastiera virtuale su mobile
+          break
       }
     },
     onFocus() {
@@ -229,7 +229,7 @@ export default {
         this.filteredSuggestions.length > 0 ||
         (this.suggestions && this.suggestions.length > 0)
       ) {
-        this.isOpen = true;
+        this.isOpen = true
 
         //if(this.apiUrl && !this.modelValue && this.suggestions.length === 0) {
         //
@@ -241,95 +241,33 @@ export default {
           this.suggestions.length > 0 &&
           !this.modelValue
         ) {
-          this.showAllSuggestions();
+          this.showAllSuggestions()
         }
       }
 
       if (this.blurTimeout) {
-        clearTimeout(this.blurTimeout);
-        this.blurTimeout = null;
+        clearTimeout(this.blurTimeout)
+        this.blurTimeout = null
       }
     },
     onBlur() {
       this.blurTimeout = setTimeout(() => {
-        this.isOpen = false;
-        this.activeSuggestionIndex = -1;
-      }, 150);
+        this.isOpen = false
+        this.activeSuggestionIndex = -1
+      }, 150)
     },
   },
   beforeUnmount() {
     if (this.blurTimeout) {
-      clearTimeout(this.blurTimeout);
+      clearTimeout(this.blurTimeout)
     }
 
     if (this.searchTimeout) {
-      clearTimeout(this.searchTimeout);
+      clearTimeout(this.searchTimeout)
     }
   },
-};
+}
 </script>
 
 <style scoped>
-.autocomplete-input {
-  box-sizing: border-box;
-  font-size: 16px;
-  padding: 8px;
-  width: 20rem;
-}
-
-.autocomplete-wrapper {
-  display: inline-block;
-  position: relative;
-  width: fit-content;
-}
-
-.clear-icon {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #999;
-  font-size: 18px;
-  line-height: 1;
-  user-select: none;
-  transition: opacity 0.2s;
-  z-index: 2;
-}
-
-.clear-icon:hover {
-  color: #333;
-}
-
-.input-wrapper {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-}
-
-.suggestions {
-  background-color: white;
-  border: 1px solid #ccc;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  left: 0;
-  margin-top: 4px;
-  max-height: 200px;
-  min-width: 100%;
-  overflow-y: auto;
-  position: absolute;
-  top: 100%;
-  white-space: nowrap;
-  z-index: 1000;
-}
-
-.suggestion-item {
-  cursor: pointer;
-  padding: 8px 12px;
-}
-
-.suggestion-item:hover,
-.suggestion-item.active {
-  background-color: #f0f0f0;
-}
 </style>
