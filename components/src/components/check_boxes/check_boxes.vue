@@ -1,134 +1,170 @@
-<template src="./check_boxes.html">
-</template>
+<template src="./check_boxes.html"></template>
 
 <script>
-  /** check_boxes.vue **/
-
+/** check_boxes.vue **/
 export default {
   name: "CheckBoxes",
-  components: {},
   props: {
     options: {
       type: Array,
-      required: true
+      required: true,
     },
     modelValue: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     name: {
       type: String,
-      default: () => `checkbox-${Math.random().toString(36).substr(2, 9)}`
+      default: () => `checkbox-${Math.random().toString(36).substr(2, 9)}`,
     },
     inputClasses: {
       type: [String, Array],
-      default: () => []
+      default: () => [],
     },
     labelClasses: {
       type: [String, Array],
-      default: () => []
+      default: () => [],
+    },
+    baseClass: {
+      type: [String, Array],
+      default: "",
     },
     mergeClasses: {
       type: Boolean,
-      default: true
-    }
-  },
-  data() {
-    return {
-      selectedValues: this.modelValue || []
-    }
-  },
-  watch: {
-    selectedValues(newVal) {
-
-      this.$emit('update:modelValue', newVal)
+      default: true,
     },
-    modelValue(newVal) {
-      
-      this.selectedValues = newVal
-    }
   },
+  emits: ["update:modelValue"],
   methods: {
-    handleChange(event, value) {
-      
-      const isChecked = event.target.checked
-      let newValues = [...this.selectedValues]
+    isChecked(value) {
+      return this.modelValue.includes(value);
+    },
 
-      if (isChecked) {
-        newValues.push(value)
+    toggleSelection(value) {
+      const currentSelection = [...this.modelValue];
+      const index = currentSelection.indexOf(value);
+
+      if (index > -1) {
+        currentSelection.splice(index, 1);
       } else {
-        newValues = newValues.filter(val => val !== value)
+        currentSelection.push(value);
       }
 
-      this.selectedValues = newValues
-    }
-  }
-}
+      this.$emit("update:modelValue", currentSelection);
+    },
 
+    itemClass(index) {
+      let classes = []
+
+      if (this.baseClass) {
+        if (Array.isArray(this.baseClass)) {
+          classes = classes.concat(this.baseClass)
+        } else {
+          classes.push(this.baseClass)
+        }
+      }
+
+      if(this.mergeClasses) {
+
+        if(Array.isArray(this.labelClasses)) {
+
+          if(this.labelClasses[index]) {
+
+            if(Array.isArray(this.labelClasses[index])) {
+
+              classes = classes.concat(this.labelClasses[index])
+            }
+            else {
+
+              classes.push(this.labelClasses[index])
+            }
+          }
+        }
+        else if (this.labelClasses) {
+
+          classes.push(this.labelClasses)
+        }
+      }
+
+      return classes;
+    },
+
+    getIndicatorClasses() {
+      let classes = ["custom-checkbox-indicator"]
+
+      if (this.inputClasses) {
+        if (Array.isArray(this.inputClasses)) {
+          classes = classes.concat(this.inputClasses);
+        } else {
+          classes.push(this.inputClasses);
+        }
+      }
+
+      return classes;
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 .checkbox-group {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
-
 .checkbox-item {
   align-items: center;
-  display: inline-flex;
-  gap: 6px;
-  font-size: 0.85rem;
-}
-
-.form-check-input {
-  appearance: none;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  width: 1rem;
-  height: 1rem;
+  background-color: #f9f9f9;
   border-radius: 4px;
-}
-
-.checkbox-select {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.checkbox-option {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+  box-sizing: border-box;
+  color: #333;
   cursor: pointer;
+  display: inline-flex;
+  font-size: 0.85rem;
+  gap: 6px;
   padding: 6px 12px;
-  border-radius: 4px;
   transition: background-color 0.2s ease;
 }
-
-.checkbox-option:hover {
+.checkbox-item:hover {
   background-color: #f0f0f0;
 }
-
-.checkbox-option input[type="checkbox"] {
+.checkbox-item input[type="checkbox"] {
+  -moz-appearance: none;
+  -webkit-appearance: none;
   appearance: none;
-  width: 16px;
-  height: 16px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  border: none;
+  height: 0;
   margin: 0;
-  background-color: #fff;
-  position: relative;
+  opacity: 0;
+  outline: none;
+  padding: 0;
+  position: absolute;
+  width: 0;
 }
-
-.checkbox-option input[type="checkbox"]:checked::after {
+.custom-checkbox-indicator {
+  background-color: white;
+  border-radius: 3px;
+  border: 2px solid #ccc;
+  box-sizing: border-box;
+  display: inline-block;
+  flex-shrink: 0;
+  height: 1rem;
+  position: relative;
+  width: 1rem;
+}
+.checkbox-item input[type="checkbox"]:checked + .custom-checkbox-indicator {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+.checkbox-item
+  input[type="checkbox"]:checked
+  + .custom-checkbox-indicator::after {
   content: "✓";
   position: absolute;
-  top: -2px;
-  left: 4px;
-  font-size: 1rem;
-  color: #007bff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.8rem;
+  color: white;
 }
-
 </style>

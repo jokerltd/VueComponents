@@ -1,0 +1,17 @@
+<div class='container-float'>
+  <div class="tri-state-button" @click="nextState">
+    <div class="toggle-track">
+      <!-- Spread labels -->
+      <span class="label left">{{ labels[0] }}</span>
+      <span class="label center">{{ labels[1] }}</span>
+      <span class="label right">{{ labels[2] }}</span>
+      <!-- Slider thumb -->
+      <div
+        class="toggle-thumb"
+        :class="currentClassObject"
+        :style="{ transform: thumbTransform }"
+      >        
+      </div>
+    </div>
+  </div>
+</div>

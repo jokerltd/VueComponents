@@ -1,5 +1,4 @@
-<template src="./buttons_checkboxes.html">
-</template>
+<template src="./buttons_checkboxes.html"></template>
 
 <script>
 /* buttons_checkboxes.vue */
@@ -8,99 +7,100 @@ export default {
   props: {
     buttons: {
       type: Array,
-      required: true
+      required: true,
     },
     modelValue: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     baseClasses: {
       type: String,
-      default: 'checkbox-button'
+      default: "checkbox-button",
     },
     buttonClasses: {
       type: [String, Array],
-      default: () => []
+      default: () => [],
     },
     mergeClasses: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data() {
     return {
       selectedIndices: this.modelValue
-        .map(value => this.buttons.findIndex(button => button.value === value))
-        .filter(index => index !== -1)
-    }
+        .map((value) =>
+          this.buttons.findIndex((button) => button.value === value)
+        )
+        .filter((index) => index !== -1),
+    };
   },
   computed: {
     mergedClasses() {
-    
-     return this.buttons.map((_, index) => {
-        const base = this.mergeClasses ? this.baseClasses.split(' ') : []
-        let custom = []
-  
-        // Handle buttonClasses as array or string
+      return this.buttons.map((_, index) => {
+        const base = this.mergeClasses ? this.baseClasses.split(" ") : [];
+        let custom = [];
+
         if (Array.isArray(this.buttonClasses)) {
-          custom = this.buttonClasses[index] 
-            ? (Array.isArray(this.buttonClasses[index]) 
-                ? this.buttonClasses[index] 
-                : this.buttonClasses[index].split(' '))
-            : []
-        } else if (typeof this.buttonClasses === 'string') {
-          custom = this.buttonClasses.split(' ')
+          custom = this.buttonClasses[index]
+            ? Array.isArray(this.buttonClasses[index])
+              ? this.buttonClasses[index]
+              : this.buttonClasses[index].split(" ")
+            : [];
+        } else if (typeof this.buttonClasses === "string") {
+          custom = this.buttonClasses.split(" ");
         }
-  
-        // Combine and deduplicate
-        const combined = [...new Set([...base, ...custom])]
-        return combined.join(' ')
-      })
+
+        const combined = [...new Set([...base, ...custom])];
+        return combined.join(" ");
+      });
     },
   },
   watch: {
     modelValue(newVal) {
-      const indices = newVal.map(value =>
-        this.buttons.findIndex(button => button.value === value)
-      ).filter(index => index !== -1)
+      const indices = newVal
+        .map((value) =>
+          this.buttons.findIndex((button) => button.value === value)
+        )
+        .filter((index) => index !== -1);
 
-      // Only update if different
       if (JSON.stringify(this.selectedIndices) !== JSON.stringify(indices)) {
-        this.selectedIndices = indices
+        this.selectedIndices = indices;
       }
     },
     selectedIndices: {
       handler(newVal) {
         const selectedValues = newVal
-          .map(i => this.buttons[i]?.value)
-          .filter(Boolean)
+          .map((i) => this.buttons[i]?.value)
+          .filter(Boolean);
 
         // Avoid emitting same value
-        if (JSON.stringify(selectedValues) !== JSON.stringify(this.modelValue)) {
-          this.$emit('update:modelValue', selectedValues)
+        if (
+          JSON.stringify(selectedValues) !== JSON.stringify(this.modelValue)
+        ) {
+          this.$emit("update:modelValue", selectedValues);
         }
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   methods: {
     isSelected(index) {
-      return this.selectedIndices.includes(index)
+      return this.selectedIndices.includes(index);
     },
     toggleButton(index) {
-      const idx = this.selectedIndices.indexOf(index)
+      const idx = this.selectedIndices.indexOf(index);
       if (idx === -1) {
-        this.selectedIndices.push(index)
+        this.selectedIndices.push(index);
       } else {
-        this.selectedIndices.splice(idx, 1)
+        this.selectedIndices.splice(idx, 1);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 .button-height {
   align-items: center;
   display: inline-flex;
@@ -112,7 +112,6 @@ export default {
   padding: 0 12px;
 }
 
-
 .checkbox-button {
   border: none;
   border-radius: 4px;
@@ -121,7 +120,7 @@ export default {
   font-size: 0.7rem;
   height: 2rem;
   margin-right: 0.1rem;
-  padding: 03.rem;;
+  padding: 03rem;
   transition: background-color 0.3s ease;
   width: 3rem;
 }
@@ -147,6 +146,4 @@ export default {
   padding: 5px 5px;
   width: fit-content;
 }
-
-
 </style>

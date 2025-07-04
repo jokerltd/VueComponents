@@ -1,15 +1,21 @@
 <!-- check_boxes.html -->
 <div class="container-fluid">
-  
   <div class="checkbox-group">
-    <label v-for="option in options" :key="option.value" class="checkbox-item">
+    <label
+      v-for="(option, index) in options"
+      :key="index"
+      class="checkbox-item"
+      :class="itemClass(index)"
+    >
       <input
         type="checkbox"
         :value="option.value"
-        v-model="selectedValues"
+        :checked="isChecked(option.value)"
+        @change="toggleSelection(option.value)"
+        :name="name"
       />
+      <span :class="getIndicatorClasses()"></span>
       {{ option.label }}
     </label>
   </div>
-      
 </div>
