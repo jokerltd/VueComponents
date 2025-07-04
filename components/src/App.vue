@@ -2,13 +2,15 @@
 
 <script>
 /** App,vue **/
-import AutoCompleteTextBox from "@/components/textbox_autocomplete/textbox_autocomplete.vue";
-import ButtonsCheckbox from "@/components/buttons_checkboxes/buttons_checkboxes.vue";
-import ButtonsRadiobutton from "@/components/buttons_radiobutton/buttons_radiobutton.vue";
-import CheckBoxes from "@/components/check_boxes/check_boxes.vue";
-import RadioButtons from "@/components/radio_buttons/radio_buttons.vue";
-import SelectOptions from "@/components/select_options/select_options.vue";
-import TextBox from "@/components/textbox/textbox.vue";
+import AutoCompleteTextBox from "@/components/textbox_autocomplete/textbox_autocomplete.vue"
+import ButtonsCheckbox from "@/components/buttons_checkboxes/buttons_checkboxes.vue"
+import ButtonsRadiobutton from "@/components/buttons_radiobutton/buttons_radiobutton.vue"
+import CheckBoxes from "@/components/check_boxes/check_boxes.vue"
+import RadioButtons from "@/components/radio_buttons/radio_buttons.vue"
+import SelectOptions from "@/components/select_options/select_options.vue"
+import TextBox from "@/components/textbox/textbox.vue"
+import StateButton from "@/components/state_button/state_button.vue"
+import ThreeStateButton from "@/components/state_button/three_state_button.vue"
 
 export default {
   name: "App",
@@ -20,6 +22,8 @@ export default {
     RadioButtons,
     SelectOptions,
     TextBox,
+    StateButton,
+    ThreeStateButton,
   },
   data() {
     return {
@@ -46,6 +50,7 @@ export default {
         { label: "Maybe", color: "goldenrod", value: "maybe" },
       ],
       checkboxesOptions: [],
+      checkboxCustomClasses: ["my-custom-checkbox-size"],
       inputValue: "",
       inputValue2: "",
       inputAutocomplete: "",
@@ -59,9 +64,20 @@ export default {
       selectedRadioButton: null,
       selectedRadioOptions: [],
       selectedItem: null,
-    };
+      toggleState: true,
+      selected3State: "maybe",
+    }
+  },
+  watch: {
+    buttonState(newValue, oldValue) {
+
+      console.log('🔄 Parent: buttonState changed from', oldValue, 'to', newValue)
+    }
   },
   mounted() {
+    
+    console.log('🚀 Parent mounted with buttonState:', this.buttonState)
+
     this.italianWords = [
       "Accesso",
       "Albero",
@@ -95,7 +111,11 @@ export default {
       "Parola",
     ];
     this.myOptions = ["Mele", "Banane", "Pere", "Fragole"];
-    this.checkboxesOptions = ["True", "False", "Maybe"];
+    this.checkboxesOptions = [
+      { label: "True", value: "true" },
+      { label: "False", value: "false" },
+      { label: "Maybe", value: "maybe" },
+    ];
     this.radioOptions = ["True", "False", "Maybe"];
     this.selectedRadioOptions = ["True", "False", "Maybe"];
   },
@@ -121,7 +141,7 @@ export default {
       console.log("Selected:", item);
     },
   },
-};
+}
 </script>
 
 <style>
@@ -191,11 +211,22 @@ export default {
   transition: background-color 0.3s ease;
 }
 
-.checkboxCustomClasses {
-  height: 1-2rem !important;
-  width: 1.2rem !important;
+.custom-checkbox-indicator {
+  width: 1.8rem;
+  height: 1.8rem;
+  min-width: 1.8rem;
+  min-height: 1.8rem;
+  background-color: white;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  display: inline-block;
+  flex-shrink: 0;
 }
 
+.custom-checkbox-indicator.my-custom-checkbox-size {
+  height: 1.8rem !important; /* Forza la dimensione, se necessario */
+  width: 1.8rem !important; /* Forza la dimensione, se necessario */
+}
 .custom-autocomplete {
   background-color: lightblue;
   border: 1px solid #ccc;
@@ -231,4 +262,40 @@ export default {
   min-width: 1.5rem !important;
   min-height: 1.5rem !important;
 }
+
+.custom-thumb {
+  font-size: 14px;
+}
+
+.thumb-no {
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}
+
+.thumb-maybe {
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.thumb-yes {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.manual-controls {
+  margin-top: 20px;
+}
+
+.manual-controls button {
+  margin-right: 10px;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.manual-controls button:hover {
+  background: #f0f0f0;
+}
+
 </style>

@@ -11,7 +11,7 @@
     <!--
       :class_textbox="{ 'custom-class-textbox': true, 'another-class': true }"
       :style_textbox="{ color: 'navy', fontSize: '10px' }"
-      -->
+    -->
     <div>{{ inputValue }}</div>
   </div>
 
@@ -27,7 +27,7 @@
     <!--
       :class_textbox="{ 'custom-class-textbox': true, 'another-class': true }"
       :style_textbox="{ color: 'navy', fontSize: '10px' }"
-      -->
+    -->
     <div>{{ inputValue2 }}</div>
   </div>
 
@@ -106,16 +106,51 @@
   <br />
   <p>Selected Value RadioButton: {{ selectedRadioButton }}</p>
   <!--      base-class="buttons-checkbutton-base-class" -->
-  <!--
   <div>
     <CheckBoxes
-      v-model="selectedCheckBoxes"
-      :buttons="checkboxesOptions"
       base-class="checkbox-button"
-      :button-classes="checkboxCustomClasses"
+      v-if="checkboxesOptions && checkboxesOptions.length > 0"
+      v-model="selectedCheckBoxes"
+      :input-classes="checkboxCustomClasses"
       :merge-classes="true"
+      :options="checkboxesOptions"
     />
   </div>
-  <p>Selected Values CheckBoxes: {{ selectedCheckboxes }}</p>
-<!--      base-class="buttons-checkbutton-base-class" -->
+  <p>Selected Values CheckBoxes: {{ selectedCheckBoxes }}</p>
+  <!--      base-class="buttons-checkbutton-base-class" -->
+
+  <div>
+    <StateButton v-model="toggleState" />
+    <p>Current value: {{ toggleState }}</p>
+  </div>
+
+  <div>
+    <!-- This is the correct way to use v-model -->
+    <ThreeStateButton 
+      base-class="default-thumb"
+      v-model="selected3State"
+      :classes="['thumb-no', 'thumb-maybe', 'thumb-yes']"
+      :merge-classes="true"
+      :labels="['No', 'Maybe', 'Yes']"
+      :options="['no', 'maybe', 'yes']"
+    />
+  <div>
+    <p>Current value: {{ selected3State }}</p>
+  </div>
+    
+  </div>
+  <!--
+  <div>
+    <ThreeStateButton 
+      base-class="default-thumb"
+      v-model="selected3State"
+      :classes="['thumb-no', 'thumb-maybe', 'thumb-yes']"
+      :merge-classes="true"
+      :labels="['No', 'Maybe', 'Yes']"
+      :options="['no', 'maybe', 'yes']"
+    />
+    <p>Current value: {{ toggle3State }}</p>
+  </div>
+  -->
+
 </div>
