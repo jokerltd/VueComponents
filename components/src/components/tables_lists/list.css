@@ -1,0 +1,16 @@
+.default-thumb {
+  font-size: 14px;
+  background-color: #fff;
+}
+
+.dynamic-list-container ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.dynamic-list-container li {
+  padding: 8px 12px;
+  margin-bottom: 4px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}

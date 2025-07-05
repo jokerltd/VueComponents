@@ -1,3 +1,4 @@
+<!-- table.vue -->
 <template src='./table.html'>
 </template>
 
@@ -98,7 +99,9 @@ export default {
   methods: {
     getSortIcon(index) {
       const header = this.headers[index]
-      if (!header.sortable) return null
+      if (!header.sortable) {
+        return null
+      }
 
       const isActive = this.sortState.columnIndex === index
       if (!isActive) {
@@ -120,7 +123,8 @@ export default {
 
       if (this.mergeClasses && extra) {
         return `${base} ${extra} ${dynamicClass}`
-      } else if (!this.mergeClasses && extra) {
+      }
+      else if (!this.mergeClasses && extra) {
         return `${extra} ${dynamicClass}`
       }
       return `${base} ${dynamicClass}`
