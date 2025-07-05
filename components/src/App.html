@@ -125,32 +125,25 @@
   </div>
 
   <div>
-    <!-- This is the correct way to use v-model -->
-    <ThreeStateButton 
+    <ThreeStateButton
       base-class="default-thumb"
       v-model="selected3State"
-      :classes="['thumb-no', 'thumb-maybe', 'thumb-yes']"
       :merge-classes="true"
       :labels="['No', 'Maybe', 'Yes']"
       :options="['no', 'maybe', 'yes']"
     />
-  <div>
-    <p>Current value: {{ selected3State }}</p>
+    <div>
+      <p>Current value: {{ selected3State }}</p>
+    </div>
   </div>
-    
+
+  <div style="border:1px solid blue;">
+    <DynamicTable
+         base-class="default-thumb"
+         :headers=headers
+         :sortable-columns="[0, 1]"
+         :tablerows="tablerows"
+       />
   </div>
-  <!--
-  <div>
-    <ThreeStateButton 
-      base-class="default-thumb"
-      v-model="selected3State"
-      :classes="['thumb-no', 'thumb-maybe', 'thumb-yes']"
-      :merge-classes="true"
-      :labels="['No', 'Maybe', 'Yes']"
-      :options="['no', 'maybe', 'yes']"
-    />
-    <p>Current value: {{ toggle3State }}</p>
-  </div>
-  -->
 
 </div>

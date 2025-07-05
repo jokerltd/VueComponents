@@ -1,0 +1,28 @@
+.container-float table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.local_headers_class {
+  background-color:#000;
+  color: goldenrod;
+  cursor: pointer;
+}
+
+.container-float th,
+.container-float td {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.default-thumb {
+  font-size: 14px;
+  background-color: #f9f9f9;
+}
+
+::v-deep .table-header,
+::v-deep .my-custom-header-class {
+  background-color: #f9f9f9;
+  color: goldenrod;
+}
