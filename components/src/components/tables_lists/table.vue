@@ -92,11 +92,22 @@ export default {
   },
   methods: {
     getSortIcon(index) {
-      const header = this.headers[index]
-      if (!header || this.sortState.column !== header.label) {
-        return this.sortIcons.none
+      const header = this.headers[index];
+      if (!header.sortable) return null;
+
+      const isActive = this.sortState.column === header.label;
+
+      if (!isActive) {
+        return this.sortIcons.none; // e.g. ['fas', 'arrows-alt-v']
       }
-      return this.sortState.direction === 'asc' ? this.sortIcons.asc : this.sortIcons.desc
+
+      return this.sortState.direction === 'asc' ? this.sortIcons.asc : this.sortIcons.desc;
+    },
+    isFontAwesomeIcon(icon) {
+      return typeof icon === 'string' && icon.includes('fa-')
+    },
+    isTextIcon(icon) {
+      return typeof icon === 'string' && !this.isFontAwesomeIcon(icon)
     },
     rowClass(index) {
       const base = this.baseClass
@@ -111,25 +122,19 @@ export default {
       return `${base} ${dynamicClass}`
     },
     toggleSort(index) {
-      const header = this.headers[index]
-      if (!header.sortable) {
-        return
-      }
-      let newDirection = 'asc'
-      if(this.sortState.column === header.label) {
+      const header = this.headers[index];
+      if (!header.sortable) return;
 
-        if (this.sortState.direction === 'asc') {
-          newDirection = 'desc'
-        }
-        else {
-          newDirection = null
-        }
+      let newDirection = 'asc';
+      if (this.sortState.column === header.label) {
+        if (this.sortState.direction === 'asc') newDirection = 'desc';
+        else newDirection = null;
       }
 
       this.sortState = {
         column: header.label,
         direction: newDirection
-      }
+      };
     },
   },
 }

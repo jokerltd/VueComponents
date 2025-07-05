@@ -5,11 +5,16 @@
       <tr>
         <th
           v-for="(header, index) in headers"
-          :class="[headers_class, 'table-header']"
           :key="index"
-          @click="toggleSort(index)">
+          :class="[headers_class, 'table-header', { sortable: header.sortable }]"
+          :style="{ minWidth: columnWidths[index] || 'auto' }"
+          @click="toggleSort(index)"
+        >
           {{ header.label }}
-          <span v-if="header.sortable">{{ getSortIcon(index) }}</span>
+          <span v-if="header.sortable" class="sort-icon">
+            <span v-if="isTextIcon(getSortIcon(index))">{{ getSortIcon(index) }}</span>
+            <font-awesome-icon v-else :icon="getSortIcon(index)" />
+          </span>
         </th>
       </tr>
     </thead>

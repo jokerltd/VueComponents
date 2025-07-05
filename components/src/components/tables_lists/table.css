@@ -21,6 +21,10 @@
   background-color: #f9f9f9;
 }
 
+.sort-icon {
+  margin-left: 8px;
+}
+
 ::v-deep .table-header,
 ::v-deep .my-custom-header-class {
   background-color: #f9f9f9;
