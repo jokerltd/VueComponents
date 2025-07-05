@@ -39,7 +39,7 @@ export default {
       default: () => ({
         asc: '↑',
         desc: '↓',
-        none: ''
+        none: '⇅'
       })
     },
     tablerows: {
