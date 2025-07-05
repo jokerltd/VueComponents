@@ -64,44 +64,48 @@ export default {
   computed: {
     mappedRows() {
       return this.tablerows.map(row => {
-        // remove 'id' field
         const { id, ...rest } = row
-           return Object.entries(rest).map(([key, value]) => ({
+        return Object.entries(rest).map(([key, value]) => ({
+          key,
           value,
           class: `col-${key}`
         }))
       })
     },
     sortedRows() {
-      const { column, direction } = this.sortState
-
-      if (!column) return this.mappedRows
+      const { columnIndex, direction } = this.sortState
+      if (columnIndex === null || direction === null) return this.mappedRows
 
       return [...this.mappedRows].sort((a, b) => {
-        const valA = a.find(cell => cell.class === `col-${column}`)?.value || ''
-        const valB = b.find(cell => cell.class === `col-${column}`)?.value || ''
+        const valA = a[columnIndex]?.value || ''
+        const valB = b[columnIndex]?.value || ''
+        const numA = parseInt(valA.match(/(\d+)/)?.[1] || 0)
+        const numB = parseInt(valB.match(/(\d+)/)?.[1] || 0)
 
-        if(direction === 'asc') {
-          return valA < valB ? -1 : valA > valB ? 1 : 0
+        let comparison = 0
+
+        if (numA && numB) {
+          comparison = numA - numB
         }
         else {
-          return valB < valA ? -1 : valB > valA ? 1 : 0
+          comparison = valA.localeCompare(valB)
         }
+
+        return direction === 'asc' ? comparison : -comparison
       })
     },
   },
   methods: {
     getSortIcon(index) {
-      const header = this.headers[index];
-      if (!header.sortable) return null;
+      const header = this.headers[index]
+      if (!header.sortable) return null
 
-      const isActive = this.sortState.column === header.label;
-
+      const isActive = this.sortState.columnIndex === index
       if (!isActive) {
-        return this.sortIcons.none; // e.g. ['fas', 'arrows-alt-v']
+        return this.sortIcons.none
       }
 
-      return this.sortState.direction === 'asc' ? this.sortIcons.asc : this.sortIcons.desc;
+      return this.sortState.direction === 'asc' ? this.sortIcons.asc : this.sortIcons.desc
     },
     isFontAwesomeIcon(icon) {
       return typeof icon === 'string' && icon.includes('fa-')
@@ -122,19 +126,24 @@ export default {
       return `${base} ${dynamicClass}`
     },
     toggleSort(index) {
-      const header = this.headers[index];
-      if (!header.sortable) return;
+      const header = this.headers[index]
+      if (!header.sortable) {
+        return
+      }
 
-      let newDirection = 'asc';
-      if (this.sortState.column === header.label) {
-        if (this.sortState.direction === 'asc') newDirection = 'desc';
-        else newDirection = null;
+      let newDirection = 'asc'
+      if (this.sortState.columnIndex === index) {
+        if (this.sortState.direction === 'asc') {
+          newDirection = 'desc'
+        } else {
+          newDirection = 'asc'
+        }
       }
 
       this.sortState = {
-        column: header.label,
+        columnIndex: index,
         direction: newDirection
-      };
+      }
     },
   },
 }

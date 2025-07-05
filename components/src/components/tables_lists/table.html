@@ -19,14 +19,22 @@
       </tr>
     </thead>
     <tbody>
+      <tr v-if="!sortedRows.length">
+        <td :colspan="headers.length">No data found</td>
+      </tr>
       <tr v-for="(row, rowIndex) in sortedRows" :key="rowIndex">
-        <td v-for="(col, colIndex) in row" :key="colIndex">
+        <td
+          v-for="(col, colIndex) in row"
+          :key="colIndex"
+          :class="[col.class, baseClass]"
+        >
           {{ col.value }}
         </td>
       </tr>
-      <tr v-if="Array.isArray(sortedRows) && !sortedRows.length">
-        <td :colspan="headers.length">No data found</td>
-      </tr>
     </tbody>
   </table>
+  <div style="color: red; font-size: 14px;">
+    Sorting by: {{ sortState.columnIndex }} | Direction: {{ sortState.direction }}
+  </div>
+  <pre>{{ JSON.stringify(sortedRows, null, 2) }}</pre>
 </div>
