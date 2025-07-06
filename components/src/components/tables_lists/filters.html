@@ -1,0 +1,47 @@
+<div class="container-float">
+  <div class="data-filter">
+    <div v-for="field in fields" :key="field.key" class="filter-field">
+      <label :for="field.key">{{ field.label }}</label>
+
+      <!-- Text Input -->
+      <input
+        v-if="field.type === 'text'"
+        :id="field.key"
+        type="text"
+        :class="getFieldClass(field)"
+        :value="filters[field.key] || ''"
+        @input="updateText($event, field.key)"
+        placeholder="Search..."
+      />
+
+      <!-- Select Input -->
+      <select
+        v-else-if="field.type === 'select'"
+        :id="field.key"
+        :class="getFieldClass(field)"
+        :value="filters[field.key]"
+        @change="updateSelect($event, field)"
+      >
+        <option value="">All</option>
+        <option
+          v-for="option in field.options"
+          :key="option"
+          :value="option"
+        >
+          {{ option }}
+        </option>
+      </select>
+
+      <!-- Checkbox Input -->
+      <div class="checkbox-wrapper" v-else-if="field.type === 'checkbox'">
+        <input
+          :id="field.key"
+          type="checkbox"
+          v-model="filters[field.key]"
+          class="checkbox-input"
+        />
+      </div>
+    </div>
+  </div>
+
+</div>

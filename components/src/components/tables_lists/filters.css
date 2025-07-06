@@ -1,0 +1,56 @@
+.data-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.filter-field .checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.filter-control {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.filter-control:focus {
+  outline: none;
+  border-color: #007BFF;
+  background-color: #f9f9f9;
+}
+
+/* Separate styling for checkboxes */
+.checkbox-input {
+  width: 16px;
+  height: 16px;
+  accent-color: #007BFF;
+  cursor: pointer;
+}
+
+.checkbox-input:focus {
+  outline: 2px solid #007BFF;
+  outline-offset: 2px;
+}
+
+.wide {
+  min-width: 200px;
+}
+
+.status-filter {
+  background-color: #fffacd;
+}
+
+.admin-check {
+  transform: scale(1.2);
+  accent-color: #007BFF;
+}
