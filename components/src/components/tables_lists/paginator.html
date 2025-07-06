@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="paginator">
+
+    <select v-model.number="internalPerPage" class="per-page-select">
+        <option v-for="option in perPageOptions" :key="option" :value="option">
+          {{ option }}
+        </option>
+      </select>
+
+      <button @click="goToPage(1)" :class="buttonClass('first')" :disabled="isFirst">
+        {{ getIcon('first') }}
+      </button>
+      <button @click="prevPage" :class="buttonClass('prev')" :disabled="isFirst">
+        {{ getIcon('prev') }}
+      </button>
+
+      <div class="page-buttons">
+        <button
+          v-for="page in displayedPages"
+          :key="page"
+          :class="[
+            baseClass,
+            { active: currentPage === page }
+          ]"
+          @click="goToPage(page)"
+        >
+          {{ page }}
+        </button>
+      </div>
+
+      <button @click="nextPage" :class="buttonClass('next')" :disabled="isLast">
+        {{ getIcon('next') }}
+      </button>
+      <button @click="goToPage(totalPages)" :class="buttonClass('last')" :disabled="isLast">
+        {{ getIcon('last') }}
+      </button>
+    </div>
+
+</div>"

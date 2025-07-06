@@ -1,5 +1,6 @@
 <div class="container-float">
-  <div v-if="sortable" class="list-header" @click="toggleSort">
+  <div v-if="sortable" class="list-header">
+    <button v-if="sortable" class="btn btn-outline-warning btn-sm " @click="toggleSort">Sort</button>
     Sort by {{ sortKey }} {{ getSortIcon() }}
   </div>
   <ul :class="listClass"> <!-- 👈 Applies to <ul> -->

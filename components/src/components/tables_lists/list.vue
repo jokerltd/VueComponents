@@ -13,7 +13,7 @@ export default {
       type: Array,
       default: () => []
     },
-    listClass: {// single class for all items
+    listClass: {
       type: String,
       default: ''
     },

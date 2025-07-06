@@ -1,0 +1,34 @@
+.paginator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.paginator .per-page-select {
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
+.paginator .page-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.paginator-button {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.paginator-button:hover:not([disabled]) {
+  background-color: #eee;
+}
+
+.paginator-button.active {
+  background-color: #007BFF;
+  color: white;
+  font-weight: bold;
+}
