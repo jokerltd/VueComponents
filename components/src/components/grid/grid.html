@@ -1,0 +1,42 @@
+<!-- grid.html -->
+<div class="container-float">
+  <div class="grid-container" :class="gridClass">
+    <!-- Optional Header -->
+    <div v-if="header" class="grid-header-row" :class="headerClass">
+      <div
+        v-for="(cell, index) in gridHeader"
+        :key="index"
+        class="grid-cell"
+        :class="cellClass"
+        v-html="getCellContent(cell)"
+      ></div>
+    </div>
+
+    <!-- Data Rows -->
+    <div
+      v-for="(row, rowIndex) in rows"
+      :key="rowIndex"
+      class="grid-row"
+      :class="rowClass"
+    >
+      <div
+        v-for="(cell, cellIndex) in row"
+        :key="cellIndex"
+        class="grid-cell"
+        :class="cellClass"
+      >
+        <!-- Render component if present -->
+        <component
+          v-if="isComponent(cell)"
+          :is="cell.component"
+          v-bind="cell.props"
+          @update:value="handleCellUpdate(rowIndex, cellIndex, $event)"
+          @edit-click="handleComponentEvent(rowIndex, cellIndex, 'edit', $event)"
+        />
+
+        <!-- Fallback for non-component cells -->
+        <span v-else v-html="getCellContent(cell)"></span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<!-- dynamic_cell.html -->
+<div class="dynamic-cell">
+  <input
+    type="text"
+    :value="value"
+    @input="$emit('update:value', $event.target.value)"
+  />
+</div>

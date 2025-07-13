@@ -1,0 +1,38 @@
+/* grid. css */
+
+.component-container {
+  width: 100%;
+  height: 100%;
+}
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-cell,
+.grid-header-row .grid-cell {
+  padding: 6px 10px;
+  word-break: break-word;
+  background-color: #fff;
+  min-height: 30px;
+}
+
+.grid-container {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-header-row .grid-cell {
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+
+.grid-row,
+.grid-header-row {
+  display: contents;
+}

@@ -1,0 +1,15 @@
+/* action_button.css */
+
+.action-button {
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  min-width: 5rem;
+  padding: 0.5rem;
+}
+
+.action-button:hover {
+  background-color: #0056b3;
+}
